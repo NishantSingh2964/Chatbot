@@ -13,10 +13,6 @@ interface ChatMessageProps {
 
 export default function ChatMessage({ message }: ChatMessageProps) {
     const isUser = message.sender === 'user';
-    const timestamp = new Date(message.timestamp).toLocaleTimeString('en-US', {
-        hour: 'numeric',
-        minute: '2-digit',
-    });
 
     return (
         <div className={`flex w-full mb-6 ${isUser ? 'justify-end' : 'justify-start'}`}>
@@ -90,9 +86,6 @@ export default function ChatMessage({ message }: ChatMessageProps) {
                             {message.text}
                         </ReactMarkdown>
                     </div>
-                    <span className="text-xs text-[var(--text-light)] mt-1 px-1">
-                        {timestamp}
-                    </span>
                 </div>
             </div>
         </div>
