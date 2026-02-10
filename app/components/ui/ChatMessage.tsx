@@ -19,64 +19,57 @@ export default function ChatMessage({ message }: ChatMessageProps) {
     });
 
     return (
-        <div className={`flex gap-3 mb-4 ${isUser ? 'flex-row-reverse' : 'flex-row'}`}>
-            {/* Avatar */}
-            {!isUser && (
-                <div className="w-8 h-8 rounded-full bg-gradient-to-r from-[var(--primary-blue)] to-[var(--primary-purple)] flex items-center justify-center flex-shrink-0">
-                    <svg className="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 24 24">
-                        <path d="M12 2L2 7v10c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V7l-10-5z" />
-                    </svg>
+        <div className={`flex w-full mb-6 ${isUser ? 'justify-end' : 'justify-start'}`}>
+            <div className={`flex max-w-[85%] ${isUser ? 'flex-row-reverse' : 'flex-row'} gap-4`}>
+                <div className={`w-8 h-8 rounded-lg flex items-center justify-center flex-shrink-0 shadow-sm transition-transform hover:scale-110 ${isUser
+                    ? 'bg-[var(--primary-indigo)] text-white border border-white/20'
+                    : 'bg-white border border-[var(--border-color)] text-[var(--primary-indigo)]'
+                    }`}>
+                    {isUser ? (
+                        <span className="text-[10px] font-black leading-none">N</span>
+                    ) : (
+                        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
+                        </svg>
+                    )}
                 </div>
-            )}
+                <div className={`px-5 py-3.5 rounded-2xl shadow-sm ${isUser
+                    ? 'bg-[var(--primary-indigo)] text-white shadow-indigo-500/20'
+                    : 'bg-white border border-[var(--border-color)] text-[var(--text-primary)]'
+                    }`}>
+                    {message.image && (
+                        <div className="mb-3 rounded-xl overflow-hidden border border-white/20 shadow-md">
+                            <img src={message.image} alt="Attachment" className="max-w-full max-h-[300px] object-cover" />
+                        </div>
+                    )}
+                    <div className={`prose prose-sm max-w-none font-bold ${isUser ? 'prose-invert !text-white' : 'text-[var(--text-primary)]'}`}>
+                        <ReactMarkdown
+                            remarkPlugins={[remarkGfm]}
+                            components={{
+                                code({ node, inline, className, children, ...props }: any) {
+                                    // Grid Detection Logic
+                                    const isJson = /language-json/.test(className || '');
+                                    const isGridExplicit = /:grid/.test(className || '');
 
-            {isUser && (
-                <div className="w-8 h-8 rounded-full bg-gradient-to-br from-[var(--primary-blue)] to-[var(--primary-purple)] flex items-center justify-center text-white shadow-sm flex-shrink-0">
-                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
-                    </svg>
-                </div>
-            )}
-
-            {/* Message Bubble */}
-            <div className={`max-w-[70%] ${isUser ? 'items-end' : 'items-start'} flex flex-col`}>
-                <div
-                    className={`rounded-2xl px-4 py-2 ${isUser
-                        ? 'bg-[var(--primary-blue)] text-white rounded-br-sm'
-                        : 'bg-[var(--card-background)] text-[var(--text-primary)] rounded-bl-sm'
-                        }`}
-                >
-                    <div className={`text-sm leading-relaxed ${isUser ? '' : 'prose prose-sm max-w-none prose-p:my-1 prose-ul:my-1 prose-li:my-0.5'}`}>
-                        {isUser ? (
-                            <p className="whitespace-pre-wrap break-words">{message.text}</p>
-                        ) : (
-                            <ReactMarkdown
-                                remarkPlugins={[remarkGfm]}
-                                components={{
-                                    code({ node, inline, className, children, ...props }: any) {
-                                        // Grid Detection Logic
-                                        const isJson = /language-json/.test(className || '');
-                                        const isGridExplicit = /:grid/.test(className || '');
-
-                                        if (!inline && (isJson || isGridExplicit)) {
-                                            try {
-                                                const content = String(children).replace(/\n$/, '');
-                                                const parsed = JSON.parse(content);
-
-                                                // Handle varying structures:
-                                                // 1. Array: [...]
-                                                // 2. Wrapped: { grid: [...] } or { data: [...] }
-                                                const data = Array.isArray(parsed) ? parsed : (parsed.grid || parsed.data);
-
-                                                // Check if it's an array of objects
-                                                if (Array.isArray(data) && data.length > 0 && typeof data[0] === 'object') {
-                                                    return <DataGrid data={data} />;
-                                                }
-                                            } catch (e) {
-                                                // Not valid JSON grid, fall back to code block
+                                    if (!inline && (isJson || isGridExplicit)) {
+                                        try {
+                                            const content = String(children).replace(/\n$/, '');
+                                            const parsed = JSON.parse(content);
+                                            // Handle varying structures:
+                                            // 1. Array: [...]
+                                            // 2. Wrapped: { grid: [...] } or { data: [...] }
+                                            const data = Array.isArray(parsed) ? parsed : (parsed.grid || parsed.data);
+                                            // Check if it's an array of objects
+                                            if (Array.isArray(data) && data.length > 0 && typeof data[0] === 'object') {
+                                                return <DataGrid data={data} />;
                                             }
+                                        } catch (e) {
+                                            // Not valid JSON grid, fall back to code block
                                         }
+                                    }
 
-                                        return !inline && /language-(\w+)/.exec(className || '') ? (
+                                    return !inline && /language-(\w+)/.exec(className || '') ? (
+                                        <div className="my-4 rounded-xl overflow-hidden shadow-inner bg-slate-900">
                                             <SyntaxHighlighter
                                                 style={vscDarkPlus}
                                                 language={(/language-(\w+)/.exec(className || '') || [])[1]}
@@ -85,22 +78,22 @@ export default function ChatMessage({ message }: ChatMessageProps) {
                                             >
                                                 {String(children).replace(/\n$/, '')}
                                             </SyntaxHighlighter>
-                                        ) : (
-                                            <code className={className} {...props}>
-                                                {children}
-                                            </code>
-                                        );
-                                    }
-                                }}
-                            >
-                                {message.text}
-                            </ReactMarkdown>
-                        )}
+                                        </div>
+                                    ) : (
+                                        <code className={`${className} bg-slate-100 px-1.5 py-0.5 rounded-md text-indigo-600 font-semibold`} {...props}>
+                                            {children}
+                                        </code>
+                                    );
+                                }
+                            }}
+                        >
+                            {message.text}
+                        </ReactMarkdown>
                     </div>
+                    <span className="text-xs text-[var(--text-light)] mt-1 px-1">
+                        {timestamp}
+                    </span>
                 </div>
-                <span className="text-xs text-[var(--text-light)] mt-1 px-1">
-                    {timestamp}
-                </span>
             </div>
         </div>
     );

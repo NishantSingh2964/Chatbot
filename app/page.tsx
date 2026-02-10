@@ -9,7 +9,9 @@ import MessageInput from './components/ui/MessageInput';
 import { Chat, Message, ChatState } from './types/chat';
 import { loadChatsFromStorage, saveChatsToStorage } from './utils/localStorage';
 
-export default function Home() {
+interface HomeProps { }
+
+export default function Home({ }: HomeProps) {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [chatState, setChatState] = useState<ChatState>({ chats: [], activeChat: null });
   const [isTyping, setIsTyping] = useState(false);
@@ -43,13 +45,14 @@ export default function Home() {
     });
   };
 
-  const handleSendMessage = async (text: string) => {
+  const handleSendMessage = async (text: string, imageData?: string) => {
     const now = Date.now();
     const userMessage: Message = {
       id: `msg-${now}`,
       text,
       sender: 'user',
       timestamp: now,
+      image: imageData,
     };
 
     let updatedChats = [...chatState.chats];

@@ -34,11 +34,12 @@ interface DataGridProps {
 // Define the theme using the new Theming API
 const myTheme = themeQuartz.withPart(colorSchemeLight).withParams({
     backgroundColor: '#ffffff',
-    headerBackgroundColor: '#f1f3f4',
-    borderColor: '#e0e0e0',
-    headerTextColor: '#202124',
-    foregroundColor: '#3c4043',
-    rowHoverColor: '#f8f9fa',
+    headerBackgroundColor: '#f8fafc',
+    borderColor: '#e2e8f0',
+    headerTextColor: '#0f172a',
+    foregroundColor: '#334155',
+    rowHoverColor: '#f1f5f9',
+    accentColor: '#6366f1',
     headerHeight: 48,
     rowHeight: 48,
     cellHorizontalPaddingScale: 1.2,

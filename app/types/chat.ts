@@ -3,6 +3,7 @@ export interface Message {
     text: string;
     sender: 'user' | 'bot';
     timestamp: number;
+    image?: string;
 }
 
 export interface Chat {
