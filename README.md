@@ -1,36 +1,117 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 🤖 Chatbot Application
 
-## Getting Started
+A modern AI-powered chatbot built with **Next.js**, integrated with **Google API** for AI capabilities and **AG Grid** for advanced data table rendering.
 
-First, run the development server:
+---
+
+## 🚀 Features
+
+- 💬 Interactive Chatbot Interface
+- 🧠 Google API Integration (LLM / AI responses)
+- 📊 AG Grid integration for dynamic and high-performance tables
+- ⚡ Built with Next.js (App Router)
+- 🎨 Styled using Tailwind CSS
+- 🔐 Environment-based configuration
+- 🧹 ESLint configured
+
+---
+## 📸 Screenshots
+
+![Home Page Screenshot](https://github.com/NishantSingh2964/Chatbot/blob/main/public/Screenshot%202026-02-11%20112324.png)
+
+---
+
+## 🏗️ Project Structure
+
+├── app/ # Next.js App Router
+
+├── public/ # Static assets
+
+├── .env.local.example # Environment variable template
+
+├── eslint.config.mjs # ESLint configuration
+
+├── list-models.js # Script to list available Google models
+
+├── next.config.ts # Next.js configuration
+
+├── tailwind.config.js # Tailwind CSS config
+
+├── postcss.config.mjs # PostCSS config
+
+├── tsconfig.json # TypeScript configuration
+
+├── package.json # Dependencies and scripts
+
+└── README.md # Project documentation
+
+
+---
+
+## 🛠️ Tech Stack
+
+- **Framework:** Next.js (React + TypeScript)
+- **Styling:** Tailwind CSS
+- **AI Integration:** Google API
+- **Data Grid:** AG Grid
+- **Linting:** ESLint
+
+---
+
+## 🛠️ Installation
 
 ```bash
+# Clone the repository
+git clone https://github.com/yourusername/ngo-website.git
+
+# Run development server
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+
+# Build for production
+npm run build
+
+# Preview production build
+npm run preview
+
+
+# Navigate into the folder
+cd ngo-website
+
+# Install dependencies
+npm install
+
+```
+## **📊 AG Grid Integration**
+- Column sorting
+- Filtering
+- Pagination
+- High-performance rendering
+- Dynamic data binding
+
+  ## **🧠 Google API Integration**
+  **Flow:**
+1. User submits a message
+2. Backend sends request to Google API 
+3. Response is processed
+4. Data is optionally formatted into table structure
+5. Response displayed in chat UI (or AG Grid if structured)
+
+## **📦 Available Scripts**
+```bash
+npm run dev        # Start development server
+npm run build      # Build for production
+npm run start      # Start production server
+npm run lint       # Run ESLint
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## **🧩 Future Improvements**
+- Streaming AI responses
+- Chat history persistence (Database integration)
+- User authentication
+- Role-based access control
+- Dark mode toggle
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
 
-## Learn More
 
-To learn more about Next.js, take a look at the following resources:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
