@@ -62,7 +62,7 @@ A modern AI-powered chatbot built with **Next.js**, integrated with **Google API
 
 ```bash
 # Clone the repository
-git clone https://github.com/yourusername/ngo-website.git
+git clone https://github.com/NishantSingh2964/Chatbot.git
 
 # Run development server
 npm run dev
@@ -75,7 +75,7 @@ npm run preview
 
 
 # Navigate into the folder
-cd ngo-website
+cd Chatbot
 
 # Install dependencies
 npm install
